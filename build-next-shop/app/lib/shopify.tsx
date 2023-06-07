@@ -21,7 +21,7 @@ const ShopifyData = async (query: string) => {
 
     return data
   } catch (error) {
-    throw new Error('Products not fetched')
+    throw new Error('Unable to fetch Products')
   }
 }
 
