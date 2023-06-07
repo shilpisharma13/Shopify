@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 const ProductCard = ({ product }) => {
-  console.log(product)
+
   const { handle, title } = product.node
 
   const { altText, originalSrc } = product.node.images.edges[0].node
@@ -13,7 +13,13 @@ const ProductCard = ({ product }) => {
     <Link href={`/products/${handle}`}>
       <div className='w-full bg-gray-200 rounded-3xl overflow-hidden'>
         <div className='relative group-hover:opacity-75 h-72'>
-          <Image src={originalSrc} alt={altText} fill='fill' style='cover' />
+          <Image
+            src={originalSrc}
+            alt={altText || ''}
+            fill='fill'
+            style='cover'
+            sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+          />
         </div>
       </div>
       <h3 className='mt-4 text-lg font-medium text-gray-900'>{title}</h3>

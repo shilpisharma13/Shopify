@@ -15,8 +15,12 @@ export default function RootLayout({
 }) {
   return (
     <>
-      <HeaderSection />
-      <body className={inter.className}>{children}</body>
+      <html lang='en'>
+        <body className={inter.className}>
+          {/* <HeaderSection /> */}
+          {children}
+        </body>
+      </html>
     </>
   )
 }

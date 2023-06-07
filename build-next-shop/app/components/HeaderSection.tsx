@@ -84,14 +84,14 @@ const Header = () => {
           <button
             type='button'
             className='-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700'
-            onClick={() => console.log('hi')}
+            onClick={() => setMobileMenuOpen(true)}
           >
             <span className='sr-only'>Open main menu</span>
             <Bars3Icon className='h-6 w-6' aria-hidden='true' />
           </button>
         </div>
         <Popover.Group className='hidden lg:flex lg:gap-x-12'>
-          <Popover className='relative'>
+          {/* <Popover className='relative'>
             <Popover.Button className='flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900'>
               Product
               <ChevronDownIcon
@@ -100,7 +100,7 @@ const Header = () => {
               />
             </Popover.Button>
 
-            {/* <Transition
+            <Transition
               as={Fragment}
               enter='transition ease-out duration-200'
               enterFrom='opacity-0 translate-y-1'
@@ -151,9 +151,14 @@ const Header = () => {
                   ))}
                 </div>
               </Popover.Panel>
-            </Transition> */}
-          </Popover>
-
+            </Transition>
+          </Popover> */}
+          <a
+            href='/products'
+            className='text-sm font-semibold leading-6 text-gray-900'
+          >
+            Products
+          </a>
           <a href='#' className='text-sm font-semibold leading-6 text-gray-900'>
             Features
           </a>
@@ -165,7 +170,10 @@ const Header = () => {
           </a>
         </Popover.Group>
         <div className='hidden lg:flex lg:flex-1 lg:justify-end'>
-          <a href='#' className='text-sm font-semibold leading-6 text-gray-900'>
+          <a
+            href='/login'
+            className='text-sm font-semibold leading-6 text-gray-900'
+          >
             Log in <span aria-hidden='true'>&rarr;</span>
           </a>
         </div>
@@ -181,11 +189,11 @@ const Header = () => {
           <div className='flex items-center justify-between'>
             <a href='#' className='-m-1.5 p-1.5'>
               <span className='sr-only'>Your Company</span>
-              <Image
+              {/* <Image
                 className='h-8 w-auto'
                 src='https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600'
                 alt=''
-              />
+              /> */}
             </a>
             <button
               type='button'
@@ -199,7 +207,7 @@ const Header = () => {
           <div className='mt-6 flow-root'>
             <div className='-my-6 divide-y divide-gray-500/10'>
               <div className='space-y-2 py-6'>
-                <Disclosure as='div' className='-mx-3'>
+                {/* <Disclosure as='div' className='-mx-3'>
                   {({ open }) => (
                     <>
                       <Disclosure.Button className='flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50'>
@@ -226,7 +234,13 @@ const Header = () => {
                       </Disclosure.Panel>
                     </>
                   )}
-                </Disclosure>
+                </Disclosure> */}
+                <a
+                  href='#'
+                  className='-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50'
+                >
+                  Products
+                </a>
                 <a
                   href='#'
                   className='-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50'
