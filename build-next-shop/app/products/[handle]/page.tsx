@@ -1,16 +1,8 @@
-import { getSingleProduct } from '@/app/lib/shopify'
-import SingleProduct from '../../components/SingleProduct'
-
-// interface Props {
-//   params: Reac
-//   handle: string
-// }
+import { getSingleProduct } from '../../utils/shopify'
 
 const Page = async ({ params: { handle } }) => {
-  const product = await getSingleProduct()
-  console.log(product)
-  // const { title, description } = productByHandle
-
+  const response = await getSingleProduct(handle)
+  console.log(response)
   return <h1>{handle}</h1>
 }
 
