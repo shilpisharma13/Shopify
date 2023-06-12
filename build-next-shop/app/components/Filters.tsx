@@ -348,11 +348,10 @@ export default function Filters({ products }) {
               </form>
 
               {/* Product grid */}
-              {/* <div> */}
+
               {products.map((product) => (
                 <ProductCard key={product.node.id} product={product} />
               ))}
-              {/* </div> */}
             </div>
           </section>
         </main>

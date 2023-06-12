@@ -1,4 +1,3 @@
-import { getAllProducts } from '../lib/shopify'
 import Filters from '../components/Filters'
 import { getProducts } from '../utils/shopify'
 
