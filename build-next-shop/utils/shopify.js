@@ -62,14 +62,34 @@ export const getSingleProduct = async (handle) => {
             currencyCode
           }
         }
-        featuredImage {
-          url
-          altText
+        images(first: 5) {
+          edges {
+            node {
+              url
+              altText
+            }
+          }
         }
-        variants(first: 10) {
+        options {
+          name
+          values
+        }
+        variants(first: 15) {
           edges {
             node {
               id
+              title
+              price {
+                amount
+              }
+              image {
+                url
+                altText
+              }
+              selectedOptions {
+                name
+                value
+              }
             }
           }
         }

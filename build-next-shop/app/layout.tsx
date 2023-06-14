@@ -1,6 +1,9 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
-import HeaderSection from './components/HeaderSection'
+import { register } from 'swiper/element/bundle'
+import HeaderSection from '../components/HeaderSection'
+
+register()
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {

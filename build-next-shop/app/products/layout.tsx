@@ -1,5 +1,5 @@
-import Filters from '../components/Filters'
-import HeaderSection from '../components/HeaderSection'
+import Filters from '../../components/Filters'
+import HeaderSection from '../../components/HeaderSection'
 
 export default function ProductLayout({
   children,
