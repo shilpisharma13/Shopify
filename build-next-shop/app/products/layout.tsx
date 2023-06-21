@@ -1,5 +1,3 @@
-import Filters from '../../components/Filters'
-import HeaderSection from '../../components/HeaderSection'
 
 export default function ProductLayout({
   children,
@@ -8,9 +6,7 @@ export default function ProductLayout({
 }) {
   return (
     <div>
-      <HeaderSection />
-      {/* <Filters /> */}
-      {children}
+          {children}
     </div>
   )
 }

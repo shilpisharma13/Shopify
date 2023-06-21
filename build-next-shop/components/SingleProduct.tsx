@@ -1,51 +1,22 @@
 'use client'
-
 import Image from 'next/image'
-import { useState } from 'react'
-import ProductVariantOptions from './ProductVariantOptions'
+import ProductForm from './ProductForm'
+import { getVariantInventory } from '@/utils/shopify'
+import useSWR from 'swr'
 
 const SingleProduct = ({ product }) => {
-  const {
-    id,
-    handle,
-    title,
-    images,
-    description,
-    priceRange,
-    variants,
-    options,
-  } = product
-  console.log(options)
-  const allVariantOptions = product.variants.edges.map((variant) => {
-    const allOptions = {}
+  const { data: productInventory, error } = useSWR(
+    product.id,
+    (id: string) => getVariantInventory(id),
 
-    variant.node.selectedOptions.map((item) => {
-      allOptions[item.name] = item.value
-    })
-
-    return {
-      id: variant.node.id,
-      image: variant.node.image.url,
-      options: allOptions,
-      variantTitle: variant.node.title,
-      variantPrice: variant.node.price.amount,
-    }
-  })
-  console.log(allVariantOptions)
-
-  const defaultValues = {}
-  product.options.map((item) => {
-    defaultValues[item.name] = item.values[0]
-  })
-
-  const [selectedVariant, setSelectedVariant] = useState(allVariantOptions[0])
-  const [selectedOptions, setSelectedOptions] = useState(defaultValues)
+    { errorRetryCount: 3 }
+  )
+  const { title, images, description, priceRange } = product
 
   return (
     <div className='bg-white'>
       <div className='pt-6'>
         {/* Image gallery */}
-
         <div className='grid grid-cols-2'>
           <div>
             <Image
@@ -62,8 +33,6 @@ const SingleProduct = ({ product }) => {
                     key={index}
                     src={image.node.url}
                     alt={image.node.altText || ''}
-                    // fill='fill'
-                    // style='cover'
                     width={50}
                     height={20}
                   />
@@ -85,15 +54,12 @@ const SingleProduct = ({ product }) => {
               <p className='text-3xl tracking-tight text-gray-900'>
                 {`${priceRange.minVariantPrice.currencyCode} $${priceRange.minVariantPrice.amount}`}
               </p>
-              {product.options.map(({ name, values }) => (
-                <ProductVariantOptions
-                  key={`key-${name}`}
-                  name={name}
-                  values={values}
-                  selectedOptions={selectedOptions}
-                  selectedVariant={selectedVariant}
+              <div className='mt-6'>
+                <ProductForm
+                  product={product}
+                  productInventory={productInventory}
                 />
-              ))}
+              </div>
               <div className='py-10 lg:col-span-2 lg:col-start-1 lg:pb-16 lg:pr-8 lg:pt-6'>
                 {/* Description and details */}
                 <div>
@@ -102,12 +68,6 @@ const SingleProduct = ({ product }) => {
                     <p className='text-base text-gray-900'>{description}</p>
                   </div>
                 </div>
-                <button
-                  type='submit'
-                  className='mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
-                >
-                  Add to bag
-                </button>
               </div>
             </div>
           </div>

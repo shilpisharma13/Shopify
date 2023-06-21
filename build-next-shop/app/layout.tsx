@@ -1,9 +1,7 @@
+import HeaderSection from '@/components/HeaderSection'
 import './globals.css'
 import { Inter } from 'next/font/google'
-import { register } from 'swiper/element/bundle'
-import HeaderSection from '../components/HeaderSection'
 
-register()
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
@@ -20,7 +18,7 @@ export default function RootLayout({
     <>
       <html lang='en'>
         <body className={inter.className}>
-          {/* <HeaderSection /> */}
+          <HeaderSection />
           {children}
         </body>
       </html>

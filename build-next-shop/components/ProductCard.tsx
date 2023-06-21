@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 const ProductCard = ({ product }) => {
-  const { handle, title, id } = product.node
+  const { handle, title } = product.node
 
   const { altText, originalSrc } = product.node.images.edges[0].node
 
@@ -18,11 +18,13 @@ const ProductCard = ({ product }) => {
             fill='fill'
             style='cover'
             sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+            priority={false}
+            placeholder='empty'
           />
         </div>
       </div>
       <h3 className='mt-4 text-lg font-medium text-gray-900'>{title}</h3>
-      <p className='mt-1 text-sm text-gray-700'>{price}</p>
+      <p className='mt-1 text-sm text-gray-700'>A$ {price}</p>
     </Link>
   )
 }

@@ -4,7 +4,7 @@ const storefrontAccessToken = process.env.SHOPIFY_STOREFRONT_ACCESSTOKEN
 
 const endpoint = `https://${domain}/api/2023-04/graphql.json`
 
-const graphQLClient = new GraphQLClient(endpoint, {
+export const graphQLClient = new GraphQLClient(endpoint, {
   method: 'POST',
   headers: {
     'X-Shopify-Storefront-Access-Token': storefrontAccessToken,
@@ -101,7 +101,36 @@ export const getSingleProduct = async (handle) => {
 
   try {
     const data = await graphQLClient.request(getSingleProductQuery, variables)
-    return data
+        return data
+  } catch (error) {
+    throw new Error(error)
+  }
+}
+
+export const getVariantInventory = async (id) => {
+  const getVariantQuantity = gql`
+    query GetProductVariantQuantity($id: ID!) {
+      product(id: $id) {
+        variants(first: 15) {
+          edges {
+            node {
+              id
+              availableForSale
+            }
+          }
+        }
+      }
+    }
+  `
+
+  const variables = { id: id }
+
+  try {
+    const response = await graphQLClient.request(getVariantQuantity, variables)
+    // const product = response.product ? response.product : []
+    // const data = JSON.parse(response)
+
+    return response
   } catch (error) {
     throw new Error(error)
   }
