@@ -1,36 +1,10 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import useSWR from 'swr'
 import ProductVariantOptions from './ProductVariantOptions'
-import { getVariantInventory } from '@/utils/shopify'
 
-// const fetcher = (url, id) => {
-//   return axios
-//     .get(url, {
-//       params: { id: id },
-//     })
-//     .then((res) => res.data)
-//     .then((data) => data)
-// }
-
-// const disableCache = (useSWRNext) => {
-//   return (key, fetcher, config) => {
-//     const swr = useSWRNext(key, fetcher, config)
-//     const { data, isValidating } = swr
-//     return Object.assign({}, swr, {
-//       data: isValidating ? undefined : data,
-//     })
-//   }
-// }
 const ProductForm = ({ product, productInventory }) => {
  
-
-  // const { data: productInventory } = useSWR(['/api', product.id], ([url, id]) =>
-  //   fetcher(url, id)
-  // )
-
-  console.log(productInventory)
   const allVariantOptions = product.variants.edges.map((variant) => {
     const allOptions = {}
 
@@ -72,16 +46,13 @@ const ProductForm = ({ product, productInventory }) => {
     })
   }
 
-  // console.log(selectedVariant)
-  // console.log(productInventory?.product.variants.edges)
-  // console.log(allVariantOptions)
 
   useEffect(() => {
     if (productInventory) {
       const selectedItem = productInventory?.product?.variants?.edges.filter(
         (item) => item.node.id === selectedVariant.id
       )
-      console.log(selectedItem)
+    
       const isAvailable = selectedItem[0].node?.availableForSale
 
       if (isAvailable) {

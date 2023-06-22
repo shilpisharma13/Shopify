@@ -44,7 +44,7 @@ export async function getProducts() {
   try {
     return await graphQLClient.request(getAllProductsQuery)
   } catch (error) {
-    throw new Error(error)
+    throw new Error(`Unable to fetch all products ${error}`)
   }
 }
 
@@ -101,9 +101,9 @@ export const getSingleProduct = async (handle) => {
 
   try {
     const data = await graphQLClient.request(getSingleProductQuery, variables)
-        return data
+    return data
   } catch (error) {
-    throw new Error(error)
+    throw new Error(`Unable to fetch product by handle ${error}`)
   }
 }
 
@@ -127,11 +127,46 @@ export const getVariantInventory = async (id) => {
 
   try {
     const response = await graphQLClient.request(getVariantQuantity, variables)
-    // const product = response.product ? response.product : []
-    // const data = JSON.parse(response)
-
     return response
   } catch (error) {
-    throw new Error(error)
+    throw new Error(`Unable to fetch quantity ${error}`)
+  }
+}
+
+export const getCollectionsList = async () => {
+  const getCollectionQuery = gql`
+    query getCategories {
+      collections(first: 20) {
+        edges {
+          node {
+            title
+          }
+        }
+      }
+    }
+  `
+  try {
+    const response = await graphQLClient.request(getCollectionQuery)
+    return response
+  } catch (error) {
+    throw new Error(`Unable to fetch collections ${error}`)
+  }
+}
+
+export const getCategoriesList = async () => {
+  const getCategoriesQuery = gql`
+    {
+      products(first: 150) {
+        nodes {
+          productType
+        }
+      }
+    }
+  `
+  try {
+    const response = await graphQLClient.request(getCategoriesQuery)
+    return response
+  } catch (error) {
+    throw new Error(`Unable to fetch categories ${error}`)
   }
 }
