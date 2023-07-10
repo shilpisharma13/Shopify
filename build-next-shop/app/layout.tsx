@@ -1,7 +1,7 @@
 import HeaderSection from '@/components/HeaderSection'
 import './globals.css'
 import { Inter } from 'next/font/google'
-
+import { ShopProvider } from '../context/shopContext'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
@@ -18,8 +18,10 @@ export default function RootLayout({
     <>
       <html lang='en'>
         <body className={inter.className}>
-          <HeaderSection />
-          {children}
+          <ShopProvider>
+            <HeaderSection />
+            {children}
+          </ShopProvider>
         </body>
       </html>
     </>
