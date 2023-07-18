@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from 'react'
 import ProductVariantOptions from './ProductVariantOptions'
+import { useShopContext } from '@/context/shopContext'
 
 const ProductForm = ({ product, productInventory }) => {
- 
+  const { addToCart } = useShopContext()
   const allVariantOptions = product.variants.edges.map((variant) => {
     const allOptions = {}
 
@@ -19,6 +20,8 @@ const ProductForm = ({ product, productInventory }) => {
       variantTitle: variant.node.title,
       variantPrice: variant.node.price.amount,
       variantQuantity: 1,
+      handle: product.handle,
+      title: product.title
     }
   })
 
@@ -46,13 +49,12 @@ const ProductForm = ({ product, productInventory }) => {
     })
   }
 
-
   useEffect(() => {
     if (productInventory) {
       const selectedItem = productInventory?.product?.variants?.edges.filter(
         (item) => item.node.id === selectedVariant.id
       )
-    
+
       const isAvailable = selectedItem[0].node?.availableForSale
 
       if (isAvailable) {
@@ -81,8 +83,9 @@ const ProductForm = ({ product, productInventory }) => {
         <button
           type='submit'
           className='mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2'
+          onClick={() => addToCart(selectedVariant)}
         >
-          Add to bag
+          Add to Cart
         </button>
       ) : (
         <button className='mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-gray-800 px-8 py-3 text-base font-medium text-white hover:bg-gray-700 cursor-not-allowed'>

@@ -18,13 +18,15 @@ import {
   PlayCircleIcon,
 } from '@heroicons/react/20/solid'
 import Image from 'next/image'
-import { CartContext } from '../context/shopContext'
+import { useShopContext } from '../context/shopContext'
 import MiniCart from '../components/MiniCart'
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const { cartOpen, setCartOpen } = useContext(CartContext)
+  const { cartOpen, setCartOpen, cart } = useShopContext()
 
+  let totalQuantity = 0
+  cart.map((item) => (totalQuantity += item.variantQuantity))
   return (
     <header className='bg-white'>
       <nav
@@ -64,7 +66,7 @@ const Header = () => {
         <div className='hidden lg:flex lg:flex-1 lg:justify-end'>
           <div className='relative '>
             <span className='absolute -top-4 -right-0 bg-blue-500 rounded-full p-1 text-xs h-6 w-4'>
-              5
+              {totalQuantity}
             </span>
 
             <ShoppingCartIcon
@@ -106,7 +108,7 @@ const Header = () => {
             <div className='-my-6 divide-y divide-gray-500/10'>
               <div className='space-y-2 py-6'>
                 <a
-                  href='#'
+                  href='/products'
                   className='-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50'
                 >
                   Products
